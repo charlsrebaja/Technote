@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 
 import {
   createUtangAction,
@@ -19,13 +19,30 @@ import { Input } from "@/components/ui/input";
 const initialState: UtangActionState = {};
 
 export function CreateUtangDialog() {
+  const [open, setOpen] = useState(false);
+  const wasPendingRef = useRef(false);
   const [state, formAction, pending] = useActionState(
     createUtangAction,
     initialState,
   );
 
+  useEffect(() => {
+    if (pending) {
+      wasPendingRef.current = true;
+      return;
+    }
+
+    if (wasPendingRef.current) {
+      wasPendingRef.current = false;
+
+      if (!state.error) {
+        setOpen(false);
+      }
+    }
+  }, [pending, state.error]);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button>Add Utang</Button>} />
       <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>

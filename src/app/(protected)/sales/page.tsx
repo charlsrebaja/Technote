@@ -1,8 +1,8 @@
 import { deleteSaleAction } from "@/app/(protected)/sales/actions";
 import { CreateSaleDialog } from "@/components/sales/create-sale-dialog";
 import { EditSaleDialog } from "@/components/sales/edit-sale-dialog";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ConfirmDeleteForm } from "@/components/ui/confirm-delete-form";
 import {
   Table,
   TableBody,
@@ -120,12 +120,11 @@ export default async function SalesPage() {
                             dateValue: toDateInputValue(sale.date),
                           }}
                         />
-                        <form action={deleteSaleAction}>
-                          <input type="hidden" name="id" value={sale.id} />
-                          <Button type="submit" size="sm" variant="destructive">
-                            Delete
-                          </Button>
-                        </form>
+                        <ConfirmDeleteForm
+                          action={deleteSaleAction}
+                          id={sale.id}
+                          itemLabel={`sale for ${sale.customerName}`}
+                        />
                       </div>
                     </TableCell>
                   </TableRow>

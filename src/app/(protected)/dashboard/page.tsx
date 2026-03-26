@@ -56,6 +56,7 @@ export default async function DashboardPage() {
   const [
     salesToday,
     repairsToday,
+    repairSalesToday,
     utangBalance,
     recentSales,
     recentRepairs,
@@ -80,6 +81,18 @@ export default async function DashboardPage() {
           gte: startOfToday,
           lte: endOfToday,
         },
+      },
+    }),
+    prisma.repair.aggregate({
+      where: {
+        userId: user.id,
+        createdAt: {
+          gte: startOfToday,
+          lte: endOfToday,
+        },
+      },
+      _sum: {
+        serviceFee: true,
       },
     }),
     prisma.utang.aggregate({
@@ -177,6 +190,16 @@ export default async function DashboardPage() {
       hoverShadow: "hover:shadow-blue-500/10",
     },
     {
+      title: "Total Repairs Sale Today",
+      value: formatCurrency(toNumber(repairSalesToday._sum.serviceFee)),
+      hint: "Service fees logged today",
+      icon: Wrench,
+      iconColor: "text-cyan-600",
+      iconBg: "bg-cyan-100/50",
+      hoverBorder: "hover:border-cyan-400/60",
+      hoverShadow: "hover:shadow-cyan-500/10",
+    },
+    {
       title: "Total Utang",
       value: formatCurrency(toNumber(utangBalance._sum.balance)),
       hint: "Outstanding customer balance",
@@ -215,7 +238,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {statsCards.map((card) => {
           const Icon = card.icon;
 

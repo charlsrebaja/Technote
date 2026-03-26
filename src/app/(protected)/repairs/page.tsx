@@ -1,8 +1,8 @@
 import { deleteRepairAction } from "@/app/(protected)/repairs/actions";
 import { CreateRepairDialog } from "@/components/repairs/create-repair-dialog";
 import { EditRepairDialog } from "@/components/repairs/edit-repair-dialog";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ConfirmDeleteForm } from "@/components/ui/confirm-delete-form";
 import {
   Table,
   TableBody,
@@ -125,12 +125,11 @@ export default async function RepairsPage() {
                             status: repair.status,
                           }}
                         />
-                        <form action={deleteRepairAction}>
-                          <input type="hidden" name="id" value={repair.id} />
-                          <Button type="submit" size="sm" variant="destructive">
-                            Delete
-                          </Button>
-                        </form>
+                        <ConfirmDeleteForm
+                          action={deleteRepairAction}
+                          id={repair.id}
+                          itemLabel={`repair for ${repair.customerName}`}
+                        />
                       </div>
                     </TableCell>
                   </TableRow>

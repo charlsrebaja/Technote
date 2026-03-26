@@ -1,8 +1,8 @@
 import { deleteUtangAction } from "@/app/(protected)/utang/actions";
 import { CreateUtangDialog } from "@/components/utang/create-utang-dialog";
 import { EditUtangDialog } from "@/components/utang/edit-utang-dialog";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ConfirmDeleteForm } from "@/components/ui/confirm-delete-form";
 import {
   Table,
   TableBody,
@@ -82,8 +82,8 @@ export default async function UtangPage() {
                     Customer
                   </TableHead>
                   <TableHead>Description</TableHead>
-                  <TableHead className="hidden sm:table-cell">Total</TableHead>
-                  <TableHead className="hidden sm:table-cell">Paid</TableHead>
+                  <TableHead>Total</TableHead>
+                  <TableHead>Paid</TableHead>
                   <TableHead>Balance</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Actions</TableHead>
@@ -106,12 +106,8 @@ export default async function UtangPage() {
                         </p>
                       </div>
                     </TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      {formatCurrency(utang.totalAmount)}
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      {formatCurrency(utang.paidAmount)}
-                    </TableCell>
+                    <TableCell>{formatCurrency(utang.totalAmount)}</TableCell>
+                    <TableCell>{formatCurrency(utang.paidAmount)}</TableCell>
                     <TableCell>{formatCurrency(utang.balance)}</TableCell>
                     <TableCell>{utang.status}</TableCell>
                     <TableCell>
@@ -125,12 +121,11 @@ export default async function UtangPage() {
                             paidAmount: utang.paidAmount.toString(),
                           }}
                         />
-                        <form action={deleteUtangAction}>
-                          <input type="hidden" name="id" value={utang.id} />
-                          <Button type="submit" size="sm" variant="destructive">
-                            Delete
-                          </Button>
-                        </form>
+                        <ConfirmDeleteForm
+                          action={deleteUtangAction}
+                          id={utang.id}
+                          itemLabel={`utang record for ${utang.customerName}`}
+                        />
                       </div>
                     </TableCell>
                   </TableRow>
