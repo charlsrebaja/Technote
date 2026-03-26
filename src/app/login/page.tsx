@@ -7,10 +7,13 @@ import { getCurrentUser } from "@/lib/current-user";
 import { loginAction } from "@/app/(auth)/actions";
 
 export default async function LoginPage() {
-  const user = await getCurrentUser();
-
-  if (user) {
-    redirect("/");
+  try {
+    const user = await getCurrentUser();
+    if (user) {
+      redirect("/");
+    }
+  } catch {
+    // Database may not be available during build, allow page to render
   }
 
   return (

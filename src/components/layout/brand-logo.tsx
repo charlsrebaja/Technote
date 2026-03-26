@@ -15,7 +15,9 @@ export function BrandLogo({ compact = false }: BrandLogoProps) {
           Technote Logbook
         </p>
         {!compact ? (
-          <p className="text-xs text-muted-foreground">Digital store notebook</p>
+          <p className="text-xs text-muted-foreground">
+            Digital store notebook
+          </p>
         ) : null}
       </div>
     </div>
