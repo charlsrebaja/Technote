@@ -247,37 +247,41 @@ export default async function DashboardPage() {
           const Icon = card.icon;
 
           return (
-            <Card
+            <div
               key={card.title}
-              className={`group relative overflow-hidden border border-slate-200 bg-white transition-all duration-500 ease-out hover:-translate-y-1 hover:bg-slate-50/50 hover:shadow-lg ${card.hoverBorder} ${card.hoverShadow}`}
+              className="relative rounded-[18px] p-[2px] animate-gemini-border shadow-sm transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-lg"
             >
-              {/* Decorative Bubbles */}
-              <div
-                className={`absolute -right-6 -top-6 h-24 w-24 rounded-full transition-transform duration-500 group-hover:scale-110 ${card.bubbleColor}`}
-              />
-              <div
-                className={`absolute -bottom-8 -right-8 h-20 w-20 rounded-full transition-transform duration-700 group-hover:scale-125 ${card.bubbleColor}`}
-              />
-
-              <CardHeader className="relative z-10 flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium text-slate-500">
-                  {card.title}
-                </CardTitle>
+              <Card
+                className="group relative h-full w-full overflow-hidden rounded-2xl border-none bg-white transition-colors duration-500 ease-out hover:bg-slate-50/80"
+              >
+                {/* Decorative Bubbles */}
                 <div
-                  className={`mt-0.5 flex size-8 items-center justify-center rounded-md ${card.iconBg} ${card.iconColor}`}
-                >
-                  <Icon className="size-4" />
-                </div>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <div className="text-2xl font-bold tracking-tight text-slate-900">
-                  {card.value}
-                </div>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {card.hint}
-                </p>
-              </CardContent>
-            </Card>
+                  className={`absolute -right-6 -top-6 h-24 w-24 rounded-full transition-transform duration-500 group-hover:scale-110 ${card.bubbleColor}`}
+                />
+                <div
+                  className={`absolute -bottom-8 -right-8 h-20 w-20 rounded-full transition-transform duration-700 group-hover:scale-125 ${card.bubbleColor}`}
+                />
+
+                <CardHeader className="relative z-10 flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-sm font-medium text-slate-500">
+                    {card.title}
+                  </CardTitle>
+                  <div
+                    className={`mt-0.5 flex size-8 items-center justify-center rounded-md ${card.iconBg} ${card.iconColor}`}
+                  >
+                    <Icon className="size-4" />
+                  </div>
+                </CardHeader>
+                <CardContent className="relative z-10">
+                  <div className="text-2xl font-bold tracking-tight text-slate-900">
+                    {card.value}
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {card.hint}
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           );
         })}
       </div>

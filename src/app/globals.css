@@ -146,4 +146,36 @@
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  @keyframes gemini-border-spin {
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  .animate-gemini-border {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .animate-gemini-border::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250%;
+    height: 250%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    background: conic-gradient(
+      from 0deg,
+      transparent 0%,
+      transparent 50%,
+      #4e86ff 70%,
+      #d5a7ee 85%,
+      transparent 100%
+    );
+    animation: gemini-border-spin 4s linear infinite;
+    z-index: -1;
+  }
 }
