@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 
 import {
   type SaleActionState,
@@ -29,13 +29,30 @@ type EditSaleDialogProps = {
 const initialState: SaleActionState = {};
 
 export function EditSaleDialog({ sale }: EditSaleDialogProps) {
+  const [open, setOpen] = useState(false);
+  const wasPendingRef = useRef(false);
   const [state, formAction, pending] = useActionState(
     updateSaleAction,
     initialState,
   );
 
+  useEffect(() => {
+    if (pending) {
+      wasPendingRef.current = true;
+      return;
+    }
+
+    if (wasPendingRef.current) {
+      wasPendingRef.current = false;
+
+      if (!state.error) {
+        setOpen(false);
+      }
+    }
+  }, [pending, state.error]);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
         render={
           <Button size="sm" variant="outline">

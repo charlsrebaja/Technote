@@ -178,6 +178,7 @@ export default async function DashboardPage() {
       iconBg: "bg-emerald-100/50",
       hoverBorder: "hover:border-emerald-400/60",
       hoverShadow: "hover:shadow-emerald-500/10",
+      bubbleColor: "bg-emerald-500/10",
     },
     {
       title: "Repairs Today",
@@ -188,6 +189,7 @@ export default async function DashboardPage() {
       iconBg: "bg-blue-100/50",
       hoverBorder: "hover:border-blue-400/60",
       hoverShadow: "hover:shadow-blue-500/10",
+      bubbleColor: "bg-blue-500/10",
     },
     {
       title: "Total Repairs Sale Today",
@@ -198,6 +200,7 @@ export default async function DashboardPage() {
       iconBg: "bg-cyan-100/50",
       hoverBorder: "hover:border-cyan-400/60",
       hoverShadow: "hover:shadow-cyan-500/10",
+      bubbleColor: "bg-cyan-500/10",
     },
     {
       title: "Total Utang",
@@ -208,6 +211,7 @@ export default async function DashboardPage() {
       iconBg: "bg-amber-100/50",
       hoverBorder: "hover:border-amber-400/60",
       hoverShadow: "hover:shadow-amber-500/10",
+      bubbleColor: "bg-amber-500/10",
     },
   ];
 
@@ -245,9 +249,17 @@ export default async function DashboardPage() {
           return (
             <Card
               key={card.title}
-              className={`relative overflow-hidden border border-slate-200 bg-white transition-all duration-500 ease-out hover:-translate-y-1 hover:bg-slate-50/50 hover:shadow-lg ${card.hoverBorder} ${card.hoverShadow}`}
+              className={`group relative overflow-hidden border border-slate-200 bg-white transition-all duration-500 ease-out hover:-translate-y-1 hover:bg-slate-50/50 hover:shadow-lg ${card.hoverBorder} ${card.hoverShadow}`}
             >
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
+              {/* Decorative Bubbles */}
+              <div
+                className={`absolute -right-6 -top-6 h-24 w-24 rounded-full transition-transform duration-500 group-hover:scale-110 ${card.bubbleColor}`}
+              />
+              <div
+                className={`absolute -bottom-8 -right-8 h-20 w-20 rounded-full transition-transform duration-700 group-hover:scale-125 ${card.bubbleColor}`}
+              />
+
+              <CardHeader className="relative z-10 flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium text-slate-500">
                   {card.title}
                 </CardTitle>
@@ -257,11 +269,11 @@ export default async function DashboardPage() {
                   <Icon className="size-4" />
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="relative z-10">
                 <div className="text-2xl font-bold tracking-tight text-slate-900">
                   {card.value}
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {card.hint}
                 </p>
               </CardContent>

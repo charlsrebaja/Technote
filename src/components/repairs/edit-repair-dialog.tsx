@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 
 import {
   type RepairActionState,
@@ -34,13 +34,30 @@ const selectClassName =
   "h-10 w-full rounded-md border border-input bg-background px-3 text-sm md:h-9";
 
 export function EditRepairDialog({ repair }: EditRepairDialogProps) {
+  const [open, setOpen] = useState(false);
+  const wasPendingRef = useRef(false);
   const [state, formAction, pending] = useActionState(
     updateRepairAction,
     initialState,
   );
 
+  useEffect(() => {
+    if (pending) {
+      wasPendingRef.current = true;
+      return;
+    }
+
+    if (wasPendingRef.current) {
+      wasPendingRef.current = false;
+
+      if (!state.error) {
+        setOpen(false);
+      }
+    }
+  }, [pending, state.error]);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
         render={
           <Button size="sm" variant="outline">
