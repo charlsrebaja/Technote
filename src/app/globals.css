@@ -190,4 +190,23 @@
     display: block;
     padding: 0;
   }
+
+  @media print {
+    .hide-on-print {
+      display: none !important;
+    }
+    .printable-table {
+      break-inside: auto;
+    }
+    .printable-table tr {
+      break-inside: avoid;
+      break-after: auto;
+    }
+    .print-only {
+      display: flex !important;
+    }
+    body {
+      background-color: white !important;
+    }
+  }
 }

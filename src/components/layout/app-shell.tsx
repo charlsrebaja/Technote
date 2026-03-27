@@ -8,6 +8,7 @@ import {
   Wrench,
   HandCoins,
   UserRound,
+  BarChart3,
   LogOut,
 } from "lucide-react";
 
@@ -27,6 +28,7 @@ const navItems = [
   { href: "/repairs", label: "Repairs", icon: Wrench },
   { href: "/utang", label: "Utang", icon: HandCoins },
   { href: "/users", label: "Users", icon: UserRound },
+  { href: "/analytics", label: "Report Analytics", icon: BarChart3 },
 ];
 
 export function AppShell({ userName, userEmail, children }: AppShellProps) {
@@ -38,7 +40,7 @@ export function AppShell({ userName, userEmail, children }: AppShellProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-30 border-b bg-white/85 backdrop-blur-md md:hidden">
+      <header className="sticky top-0 z-30 border-b bg-white/85 backdrop-blur-md md:hidden print:hidden">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5">
           <div className="min-w-0">
             <BrandLogo compact />
@@ -79,7 +81,7 @@ export function AppShell({ userName, userEmail, children }: AppShellProps) {
         </nav>
       </header>
 
-      <aside className="fixed inset-y-0 left-0 z-20 hidden w-[252px] flex-col border-r bg-white md:flex">
+      <aside className="fixed inset-y-0 left-0 z-20 hidden w-[252px] flex-col border-r bg-white md:flex print:hidden">
         <div className="border-b px-5 py-5">
           <BrandLogo />
         </div>
@@ -121,7 +123,7 @@ export function AppShell({ userName, userEmail, children }: AppShellProps) {
           </form>
         </div>
       </aside>
-      <main className="px-4 py-5 pb-16 sm:px-6 sm:py-6 sm:pb-8 lg:px-8 md:ml-[252px]">
+      <main className="px-4 py-5 pb-16 sm:px-6 sm:py-6 sm:pb-8 lg:px-8 md:ml-[252px] print:m-0 print:p-0">
         <div className="mx-auto max-w-7xl">{children}</div>
       </main>
     </div>
