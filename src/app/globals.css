@@ -178,4 +178,16 @@
     animation: gemini-border-spin 4s linear infinite;
     z-index: -1;
   }
+
+  /* Ensure date inputs properly display their native calendar icons on all mobile devices and don't clip */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    display: block;
+    cursor: pointer;
+  }
+
+  input[type="date"]::-webkit-datetime-edit {
+    display: block;
+    padding: 0;
+  }
 }
