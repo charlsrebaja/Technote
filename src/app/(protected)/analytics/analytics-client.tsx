@@ -254,12 +254,43 @@ export function AnalyticsClient({
     URL.revokeObjectURL(url);
   };
 
-  const handleExportPDF = () => {
-    window.print();
+  const handleExportPDF = async () => {
+    // Apply pdf-export classes to simulate print view for html2canvas
+    document.body.classList.add("pdf-export");
+
+    // Select the container holding our content
+    const element = document.getElementById("analytics-container");
+
+    if (!element) {
+      document.body.classList.remove("pdf-export");
+      window.print();
+      return;
+    }
+
+    try {
+      // Dynamically import html2pdf to avoid Next.js SSR issues
+      const html2pdf = (await import("html2pdf.js")).default;
+
+      const opt: any = {
+        margin: 0.5,
+        filename: `technote_report_${format(new Date(), "yyyy-MM-dd")}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, windowWidth: 1024 }, // Set fixed width to avoid mobile squishing
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+      };
+
+      await html2pdf().from(element).set(opt).save();
+    } catch (err) {
+      console.error("PDF Export failed:", err);
+      // Fallback
+      window.print();
+    } finally {
+      document.body.classList.remove("pdf-export");
+    }
   };
 
   return (
-    <div className="space-y-6">
+    <div id="analytics-container" className="space-y-6">
       {/* Header & Controls */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 hide-on-print">
         <div>
@@ -461,7 +492,7 @@ export function AnalyticsClient({
                       tickLine={false}
                     />
                     <Tooltip
-                      formatter={(val: number) => formatCurrency(val)}
+                      formatter={(val: any) => formatCurrency(Number(val))}
                       contentStyle={{
                         borderRadius: "8px",
                         border: "none",
@@ -510,7 +541,7 @@ export function AnalyticsClient({
                       tickLine={false}
                     />
                     <Tooltip
-                      formatter={(val: number) => formatCurrency(val)}
+                      formatter={(val: any) => formatCurrency(Number(val))}
                       contentStyle={{
                         borderRadius: "8px",
                         border: "none",
@@ -550,7 +581,7 @@ export function AnalyticsClient({
                       ))}
                     </Pie>
                     <Tooltip
-                      formatter={(val: number) => formatCurrency(val)}
+                      formatter={(val: any) => formatCurrency(Number(val))}
                       contentStyle={{
                         borderRadius: "8px",
                         border: "none",

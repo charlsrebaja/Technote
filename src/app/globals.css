@@ -209,4 +209,37 @@
       background-color: white !important;
     }
   }
+
+  /* Classes used via JS to simulate print environment for html2canvas to fetch correct layout */
+  .pdf-export .hide-on-print {
+    display: none !important;
+  }
+  .pdf-export .printable-table {
+    break-inside: auto;
+  }
+  .pdf-export .printable-table tr {
+    break-inside: avoid;
+    break-after: auto;
+  }
+  .pdf-export .print-only {
+    display: flex !important;
+  }
+  .pdf-export .print\:hidden {
+    display: none !important;
+  }
+  .pdf-export .print\:border-none {
+    border: none !important;
+  }
+  .pdf-export .print\:shadow-none {
+    box-shadow: none !important;
+  }
+  .pdf-export .print\:border-0 {
+    border-width: 0 !important;
+  }
+  .pdf-export .print\:p-0 {
+    padding: 0 !important;
+  }
+  .pdf-export .print\:m-0 {
+    margin: 0 !important;
+  }
 }
