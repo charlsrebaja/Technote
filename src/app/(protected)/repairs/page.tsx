@@ -81,10 +81,8 @@ export default async function RepairsPage() {
                     Customer
                   </TableHead>
                   <TableHead>Device</TableHead>
-                  <TableHead className="hidden lg:table-cell">Issue</TableHead>
-                  <TableHead className="hidden sm:table-cell">
-                    Service Fee
-                  </TableHead>
+                  <TableHead>Issue</TableHead>
+                  <TableHead>Service Fee</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>
@@ -106,12 +104,8 @@ export default async function RepairsPage() {
                         </p>
                       </div>
                     </TableCell>
-                    <TableCell className="hidden lg:table-cell">
-                      {repair.issue}
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      {formatCurrency(repair.serviceFee)}
-                    </TableCell>
+                    <TableCell>{repair.issue}</TableCell>
+                    <TableCell>{formatCurrency(repair.serviceFee)}</TableCell>
                     <TableCell>{repair.status}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
